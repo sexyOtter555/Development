@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 
-import Item from './js/Item';
-import FilterGroup from './js/FilterGroup';
-import SortGroup from './js/SortGroup';
+import Item from './Item';
+import FilterGroup from './FilterGroup';
+import SortGroup from './SortGroup';
 
-import {itemInformation, filterGroupInformation} from './js/data';
+import {itemInformation, filterGroupInformation} from './data';
 
 // create a render function which returns a React element
 class App extends Component {
@@ -105,7 +105,7 @@ class App extends Component {
 
       <div className="Image-title">
           <img
-          src={require('./media/logo.png')}
+          src={require('./assets/logo_new.png')}
           width="700" height="290" padding = "100"
           />
         </div>
