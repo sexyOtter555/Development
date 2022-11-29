@@ -1,13 +1,265 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+ /* Cite: https://github.com/Aubrey-Li/react-shopping-cart */
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+html{
+	font-size: 62.5%;
+	box-sizing: border-box;
+  }
+  body, #root{
+	height: 100vh;
+	margin: 0;
+  }
+  
+  body, input, select, textarea{
+	font-size: 1.6rem;
+	font-family: 'Nunito', sans-serif;
+  }
+  
+  .navbar{
+	display: grid;
+	grid-template-areas: 
+	"header"
+	"main"
+	"footer";
+	grid-template-rows: 8rem 1fr 5rem;
+	grid-template-columns: 1;
+	height: 100%;
+  }
+  a:hover{
+	color: green
+  }
+  header{
+	grid-area: header;
+	background-color: #363232;
+	color: #5e5555;
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+	
+  }
+
+  .header-image {
+	padding:0.1%;
+    margin:1%;
+    height: 70px;
+    width: 70px;
+	}
+  
+  header a{
+	color: #eeeeee;
+	text-decoration: none;
+	font: 20;
+  }
+  
+  main{
+	grid-area: main;
+  }
+  
+  footer {
+	grid-area: footer;
+	background-color: #585353;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .content {
+	display: flex;
+	flex-wrap: wrap;
+  }
+  
+  .main{
+	flex: 1 70rem;
+  }
+  
+  .aggregator{
+	flex: 1 20rem;
+	font-size: 1.5em;
+	background-color:#00704A;
+  }
+  
+  
+  .container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+	grid-gap: 10px;
+	padding: 30px;
+  }
+  
+  .card {
+	width: 200px;
+  }
+  
+  .card-body a {
+	color: black;
+  }
+  
+  .card-img-top {
+	width: 100%;
+	height: 15vw;
+	object-fit: cover;
+  }
+  
+  .filter {
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem;
+	margin: 1rem;
+	border-bottom: 0.1rem #c0c0c0 solid;
+  }
+  
+  .filter div {
+	flex: 1;
+  }
+  
+  .cart {
+	display: flex;
+	margin-left: 10px;
+	margin-right: 10px;
+  }
+  
+  .cart-header {
+	border-bottom: 0.5rem #c0c0c0 solid;
+  }
+  
+  .cart-items{
+	padding: 0;
+	width: 100%;
+	list-style-type: none;
+  }
+  
+  .cart-items img {
+	width: 80px;
+	height: 80px;
+  }
+  
+  .cart-items li {
+	display: flex;
+	margin: 5px;
+	background-color: white;
+	border-radius: 20px;
+  }
+  
+  .cart-items li div{
+	padding: 0.5rem;
+	font-size: 1.3rem;
+  }
+  
+  .cart-items li div:last-child {
+	flex: 1;
+  }
+  
+  .right {
+	text-align: right;
+  }
+  
+  .total {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	width: 100%;
+  }
+  
+  .total > div {
+	font-size: 2rem;
+  }
+  
+  .total > div,
+  .total > button {
+	flex: 1;
+  }
+  
+  .total > button {
+	font-size: 2rem;
+  }
+  
+  .incrementor {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-end;
+  }
+  
+  .form-container {
+	list-style-type: none;
+	width: 100%;
+  }
+  
+  .form-container li{
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem;
+  }
+  
+  .form {
+	width: 100%;
+  }
+  
+  .input {
+	padding: 1rem;
+	border: 0.1rem #c0c0c0 solid;
+  }
+  
+  .form-container label {
+	font-size: 1.5rem;
+  }
+  
+  .form-container button {
+	font-size: 1.5rem;
+  }
+  
+  /* Product pop up */
+  .product-details {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	max-height: 96vh;
+  }
+  
+  .product-details img{
+	max-height: 100vh;
+	max-width: 46rem;
+	margin: 0 auto;
+  }
+  
+  .product-details-description {
+	flex: 1 1;
+	margin: 1rem;
+  }
+  
+  .product-price {
+	display: flex;
+	justify-content: space-between;
+	width: 15%;
+  }
+  
+  .close-modal {
+	position: absolute;
+	right: 1rem;
+	top: 2.5rem;
+	z-index: 1000;
+  }
+
+  
+  btn success{
+	display:inline-block;
+	padding:0.3em 1.2em;
+	margin:0 0.3em 0.3em 0;
+	border-radius:2em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-family:'Roboto',sans-serif;
+	font-weight:300;
+	color:#FFFFFF;
+	background-color:#4eb5f1;
+	text-align:center;
+	transition: all 0.2s;
+	}
+	a.button3:hover{
+		background-color:#4095c6;
+	}
+	@media all and (max-width:30em){
+	a.button3{
+	display:block;
+	margin:0.2em auto;
+	}
+	}
