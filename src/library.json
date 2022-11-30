@@ -1,6 +1,7 @@
 {
     "products": [
         {"_id": "obj1",
+        
             "image": "/image/1.webp",
             "title": "Corgi Latte - Just The Basic",
             "description": "A double shot of espresso with lightly foamed steamed milk of your choice.",

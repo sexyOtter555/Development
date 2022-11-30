@@ -26,7 +26,7 @@ export default class Products extends Component {
                 <div className="container"> {/* renders products as cards in the main page */}
                     {this.props.products.map(product => (
                     <div className=" card border" key={product._id}>
-                        <img className="card-img-top" src={product.image} alt={product.title}></img>
+                        <img className="card-img-top" src={"process.env.https://sexyotter555.github.io/Development/"+product.image} alt={product.title}></img>
                         <div className="card-body">
                             <a href={"#" + product._id} onClick={()=> this.openDescriptionCard(product)}>
                                 <h2 className="card-header">{product.title}</h2>
