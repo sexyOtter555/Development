@@ -286,7 +286,7 @@ class Functions extends React.Component {
       <div className="navbar">
         <header>
           <a href="/">Corgibucks Coffee</a>
-		  <img class="header-image" src={"process.env.https://sexyotter555.github.io/Development/"+"/image/logo.png"}/>
+		  <img class="header-image" src={"process.env.https://sexyotter555.github.io/Development"+"/image/logo.png"}/>
         </header>
         <main>
           <div className="content"> {/* main for the display items, sidebar for Cart*/}

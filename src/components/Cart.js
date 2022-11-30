@@ -31,7 +31,7 @@ export default class Cart extends Component {
                             {cartItems.map(item => (
                                 <li key={item._id}>
                                 <div>
-                                    <img src={"process.env.https://sexyotter555.github.io/Development/"+item.image} alt={item.title}></img>
+                                    <img src={"process.env.https://sexyotter555.github.io/Development"+item.image} alt={item.title}></img>
                                 </div>
                                 <div>
                                     <div>{item.title}</div>
