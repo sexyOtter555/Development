@@ -14,11 +14,12 @@ class Functions extends React.Component {
       Dietary_Restrictions: "",
       category: "",
       sort: "",
-      cartItems: localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
+      ItemsinCart: localStorage.getItem("ItemsinCart")
+      ? JSON.parse(localStorage.getItem("ItemsinCart"))
       : [],
     };
   }
+
 
                        /***************************** FILTER AND SORT *******************************=*** */
  // sortOnPrice function would be triggered by onChange in Filter */
@@ -29,18 +30,18 @@ class Functions extends React.Component {
       sort: sort,
       products: this.state.products.slice()
       .sort((a,b) =>
-        sort === "lowest"
-          ? a.price > b.price 
-            ? 1
-            : -1
-          : sort === "highest"
-          ? a.price < b.price
-            ? 1
-            : -1
-          : a._id > b._id
-            ? 1
-            : -1
-      ),
+      sort === "lowest"
+        ? a.price > b.price 
+          ? 1
+          : -1
+        : sort === "highest"
+        ? a.price < b.price
+          ? 1
+          : -1
+        : a._id > b._id
+          ? 1
+          : -1
+    ),
     }));
   };
 
@@ -65,7 +66,7 @@ class Functions extends React.Component {
                 : -1
           )
       })}
-      else { /* when user select "None" for restrictions, but category has exiting selection*/
+      else { 
         this.setState({Dietary_Restrictions: event.target.value, 
           products: library.products
           .slice()
@@ -89,7 +90,7 @@ class Functions extends React.Component {
       } 
     }
     else {
-      if (this.state.category === "") { /* when user select a Dietary_Restrictions, category set to "All"*/
+      if (this.state.category === "") {
         this.setState({Dietary_Restrictions: event.target.value, 
           products: library.products
           .slice()
@@ -110,7 +111,7 @@ class Functions extends React.Component {
             (product) => product.Dietary_Restrictions.indexOf(event.target.value) >= 0
           )
       })}
-      else { /* when user select a Dietary_Restrictions, and category has exiting selection*/
+      else {
         this.setState({Dietary_Restrictions: event.target.value, 
           products: library.products
           .slice()
@@ -139,7 +140,7 @@ class Functions extends React.Component {
 
   filterByCategory = event => {
     if (event.target.value === "") {
-      if (this.state.Dietary_Restrictions === "") { /* when diet and category both none */
+      if (this.state.Dietary_Restrictions === "") { 
         this.setState({category: event.target.value, 
           products: library.products
           .slice()
@@ -157,7 +158,7 @@ class Functions extends React.Component {
                 : -1
           )
       })}
-      else { /* when category is "ALL", Dietary_Restrictions has preexisting selection */
+      else {
         this.setState({category: event.target.value, 
           products: library.products
           .slice()
@@ -181,7 +182,7 @@ class Functions extends React.Component {
       } 
     }
     else {
-      if (this.state.Dietary_Restrictions === "") { /* when Dietary_Restrictions is "All", user selects a category */
+      if (this.state.Dietary_Restrictions === "") { 
         this.setState({category: event.target.value, 
           products: library.products
           .slice()
@@ -202,7 +203,7 @@ class Functions extends React.Component {
             (product) => product.category === event.target.value
           )
       })}
-      else { /* when Dietary_Restrictions has pre-existing value, user selects a category */
+      else { 
         this.setState({category: event.target.value, 
           products: library.products
           .slice()
@@ -230,47 +231,46 @@ class Functions extends React.Component {
   }
 
              /***************************** CART *******************************=*** */
-  addToCart = (product) => { /* add to cart when called in products and Cart */
-    const cartItems = this.state.cartItems.slice();
-    let alreadyInCart = false;
-    cartItems.forEach(item =>{
-    if (item._id === product._id){ 
-      item.count += 1;
-      alreadyInCart = true;
+  addToCart = (product) => { 
+    const ItemsinCart = this.state.ItemsinCart.slice();
+    let isInCart = false;
+    ItemsinCart.forEach(item =>{
+    if (product._id === item._id){ 
+      item.count ++;
+      isInCart = true;
     }
     });
-    if (!alreadyInCart) {
-      cartItems.push({...product, count: 1});
+    if (!isInCart) {
+      ItemsinCart.push({...product, count: 1});
     }
-    this.setState({cartItems});
-    localStorage.setItem("cartItems", JSON.stringify(this.state.cartItems));
+    this.setState({ItemsinCart});
+    localStorage.setItem("ItemsinCart", JSON.stringify(this.state.ItemsinCart));
   };
 
   removeFromCart = (product) => {
-    const cartItems = this.state.cartItems.slice();
+    const ItemsinCart = this.state.ItemsinCart.slice();
+    localStorage.setItem("ItemsinCart", 
+    JSON.stringify(ItemsinCart.filter((x) => x._id !== product._id)));
+
     this.setState({ 
-      cartItems: cartItems.filter((x) => x._id !== product._id),
+      ItemsinCart: ItemsinCart.filter((x) => x._id !== product._id),
     });
-    localStorage.setItem("cartItems", 
-    JSON.stringify(cartItems.filter((x) => x._id !== product._id)));
   };
 
 
   decrementCount =(product) => {
-    const cartItems = this.state.cartItems.slice();
-      cartItems.forEach(item =>{
-        if ((item._id === product._id) && item.count > 1){
-          item.count -= 1;
+    const ItemsinCart = this.state.ItemsinCart.slice();
+      ItemsinCart.forEach(item =>{
+        if (( product._id === item._id) && item.count > 1){
+          item.count -- ;
         }
       });
-      this.setState({cartItems});
-      localStorage.setItem("cartItems", JSON.stringify(this.state.cartItems));
+      this.setState({ItemsinCart});
+      localStorage.setItem("ItemsinCart", JSON.stringify(this.state.ItemsinCart));
       };
 
-  
-
   // set to default
-  SetOriginalPage = (e) => { 
+  SetOriginalPage = (p) => { 
       this.setState({
           products: library.products,
           sort: "",
@@ -278,7 +278,6 @@ class Functions extends React.Component {
           category: "",
       })
   }
-
 
 
   render() {
@@ -289,10 +288,12 @@ class Functions extends React.Component {
 		  <img class="header-image" src={process.env.PUBLIC_URL + "/image/logo.png"}/>
         </header>
         <main>
-          <div className="content"> {/* main for the display items, sidebar for Cart*/}
+          <div className="content"> 
+
             <div className="main">
             {/* filter class */}
-              <Filter count={this.state.products.length}
+              <Filter
+              count={this.state.products.length}
               Dietary_Restrictions={this.state.Dietary_Restrictions}
               sort={this.state.sort}
               category={this.state.category}
@@ -301,11 +302,16 @@ class Functions extends React.Component {
               sortOnPrice={this.sortOnPrice}
               filterByCategory={this.filterByCategory}
               ></Filter>
-              <Products products={this.state.products} 
-              addToCart={this.addToCart}></Products>
+
+              <Products 
+              products={this.state.products} 
+              addToCart={this.addToCart}>
+              </Products>
             </div>
+
             <div className="aggregator">
-              <Cart cartItems={this.state.cartItems} 
+              <Cart 
+              ItemsinCart={this.state.ItemsinCart} 
               removeFromCart={this.removeFromCart}
               decrementCount={this.decrementCount}
               addToCart={this.addToCart}

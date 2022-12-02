@@ -11,15 +11,15 @@ export default class Cart extends Component {
     }
 
     render() {
-        const{cartItems} = this.props;
+        const{ItemsinCart} = this.props;
         return (
             <div>
                 <div>
-                {cartItems.length === 0? (
+                {ItemsinCart.length === 0? (
                 <div className="cart_header">Your Cart is Empty</div>
                 ): (
                 <div className="cart_header">
-                    You have {cartItems.length} item(s) in cart {" "}
+                    You have {ItemsinCart.length} item(s) in cart {" "}
                 </div>
                 )}
                 <br />
@@ -28,7 +28,7 @@ export default class Cart extends Component {
                 <div className="cart">
                     <Fade left cascade>
                         <ul className="cart-items"> 
-                            {cartItems.map(item => (
+                            {ItemsinCart.map(item => (
                                 <li key={item._id}>
                                 <div>
                                     <img src={process.env.PUBLIC_URL + item.image} alt={item.title}></img>
@@ -53,13 +53,13 @@ export default class Cart extends Component {
                         </ul>
                     </Fade>
                 </div> {/* Calculate total price */}
-                {cartItems.length !== 0 && (
+                {ItemsinCart.length !== 0 && (
                     <div>
                     <div className="cart">
                     <div className="total">
                         <div>
                             Total:{" "}
-                            {formatPrice(cartItems.reduce((a, c) => a + (c.price * c.count), 0))}
+                            {formatPrice(ItemsinCart.reduce((a, c) => a + (c.price * c.count), 0))}
                         </div>
                         <button onClick={()=>this.setState({ ProceedCheckOut: true })} className="btn success">Proceed</button>
                     </div>
