@@ -1,7 +1,7 @@
 # Development
 
 ### Link to Deployed Website
-https://github.com/sexyOtter555/Development.git
+https://sexyotter555.github.io/Development/
 
 ### Goal and Value of the Application
 The Corgibucks Coffee Shop site serves as an order site that allows customers to filter/sort on the available items and checkout. The value of the application is that it provides an useful interface that allows users to order food and drink online instead of having to wait in line in store.
